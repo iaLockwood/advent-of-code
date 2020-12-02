@@ -1,0 +1,5 @@
+python
+
+https://github.com/wimglenn/advent-of-code-data
+sudo pip install advent-of-code-data
+export AOC_SESSION=
