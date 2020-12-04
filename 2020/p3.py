@@ -59,7 +59,7 @@ exampledata = list(map(str, open("example-input-p3.txt")))
 data = list(map(str, open("input-p3.txt")))
 
 # Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
-def part_a(data):
+def part_a(data, delta_x, delta_y):
     num_trees = 0
     x_pos = 0
     for s in data:
@@ -67,7 +67,7 @@ def part_a(data):
         c = p[x_pos % len(p)]
         if c == '#':
             num_trees += 1
-        x_pos += 3
+        x_pos = x_pos + delta_x
         #print(p + ' ' + c)
     return num_trees
 
@@ -83,6 +83,6 @@ def part_a(data):
 # what is the product for the full data input?
 # TODO part_b
 
-print("part_a: " + str(part_a(data)))
+print("part_a: " + str(part_a(data, 3, 1)))
 
 print("\n\ndone")
