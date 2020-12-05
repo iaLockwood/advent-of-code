@@ -44,18 +44,63 @@ Here are some other boarding passes:
 As a sanity check, look through your list of boarding passes. What is the highest seat ID on a boarding pass?
 """
 def parse_seat_string(s):
-    seat_number = [0] * 10
+    #seat_number = [0] * 10
+    seat_number = ''
     for idx, c in enumerate(s):
         #print(c)
-        if c == 'B':
-            seat_number[idx] = 1
+        if c == 'B' or c == 'R':
+            #seat_number[idx] = 1
+            seat_number += '1'
+        elif c == 'F' or c == 'L':
+            seat_number += '0'
     return seat_number
-
-print(parse_seat_string('BFFFBBFRRR'))
+#print(parse_seat_string('BFFFBBFRRR'))
 
 rawdata = list(map(str , open("input-p5.txt")))
-data = [None] * len(rawdata)
+cleandata = [None] * len(rawdata)
 for idx, s in enumerate(rawdata):
-    data[idx] = parse_seat_string(s)
+    cleandata[idx] = parse_seat_string(s)
+cleandata.sort()
+#print(cleandata)
 
-print(data)
+def seat_id(string_binary):
+    row_2 = string_binary[0:7]
+    col_2 = string_binary[7:]
+    row_10 = int(row_2, 2)
+    col_10 = int(col_2, 2)
+    #print("row_2 " + row_2 + " row_10 " + str(row_10) + " col " + col_2 + " col_10 " + str(col_10))
+    seat_id_10 = row_10 * 8 + col_10
+    return seat_id_10
+
+def part_a(data):
+    highest_seat_bin = data[len(data) - 1]
+    #print(highest_seat_bin)
+    return str(seat_id(highest_seat_bin))
+
+
+print("part_a " + part_a(cleandata))
+
+
+print("\npart_b")
+seat_ids = [None] * len(cleandata)
+sum_of_seat_ids = 0
+for idx, bin_seat in enumerate(cleandata):
+    id_10 = seat_id(bin_seat)
+    seat_ids[idx] = id_10
+    sum_of_seat_ids += id_10
+print("...sum of seat ids " + str(sum_of_seat_ids))
+
+lowest_seat_id_10 = int(seat_ids[0])
+print("...lowest seat id " + str(lowest_seat_id_10))
+sum_of_missing_seats = lowest_seat_id_10 * ((lowest_seat_id_10 - 1) / 2)
+print("...sum of missing seats " + str(sum_of_missing_seats))
+
+#print(str(seat_ids[0]))
+highest_seat_10 = seat_ids[len(seat_ids) - 1]
+sum_of_possible_seat_ids = (highest_seat_10 + 1) * (highest_seat_10 / 2)
+print("...sum of possible seat ids " + str(sum_of_possible_seat_ids))
+
+my_seat_id = sum_of_possible_seat_ids - (sum_of_seat_ids + sum_of_missing_seats)
+print("my seat id " + str(my_seat_id))
+
+print("\n\ndone")
