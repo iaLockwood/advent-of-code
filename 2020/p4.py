@@ -1,21 +1,4 @@
-Advent of Code
-
-* [About]
-* [Events]
-* [Shop]
-* [Log In]
-
- {'year':2020}
-
-* [Calendar]
-* [AoC++]
-* [Sponsors]
-* [Leaderboard]
-* [Stats]
-
-Our sponsors help make Advent of Code possible:
-Reaktor - Cracking puzzles since 2000. Always looking for people who don’t shy away from a challenge.
-
+"""
 --- Day 4: Passport Processing ---
 
 You arrive at the airport only to realize that you grabbed your North Pole Credentials instead of your passport. While these documents are extremely similar, North Pole Credentials aren't issued by a country and therefore aren't actually valid documentation for travel in most of
@@ -63,7 +46,4 @@ The fourth passport is missing two fields, cid and byr. Missing cid is fine, but
 According to the above rules, your improved system would report 2 valid passports.
 
 Count the number of valid passports - those that have all required fields. Treat cid as optional. In your batch file, how many passports are valid?
-
-To play, please identify yourself via one of these services:
-
-[GitHub] [Google] [Twitter] [Reddit] - [How Does Auth Work?]
+"""

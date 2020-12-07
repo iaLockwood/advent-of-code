@@ -1,21 +1,4 @@
-Advent of Code
-
-* [About]
-* [Events]
-* [Shop]
-* [Log In]
-
-          2020
-
-* [Calendar]
-* [AoC++]
-* [Sponsors]
-* [Leaderboard]
-* [Stats]
-
-Our sponsors help make Advent of Code possible:
-TwilioQuest - Learn to code and lead your intrepid crew on a mission to save The Cloud in TwilioQuest, a PC role-playing game inspired by classics of the 16-bit era. Free forever, and available now for Windows, Mac, and Linux.
-
+"""
 --- Day 6: Custom Customs ---
 
 As your flight approaches the regional airport where you'll switch to a much larger plane, customs declaration forms are distributed to the passengers.
@@ -59,7 +42,43 @@ This list represents answers from five groups:
 In this example, the sum of these counts is 3 + 3 + 3 + 1 + 1 = 11.
 
 For each group, count the number of questions to which anyone answered "yes". What is the sum of those counts?
+"""
 
-To play, please identify yourself via one of these services:
+with open('example-input-p6.txt') as f:
+    example_groups = f.read().split('\n\n')
+with open('input-p6.txt') as f:
+    input_groups = f.read().split('\n\n')
 
-[GitHub] [Google] [Twitter] [Reddit] - [How Does Auth Work?]
+import string
+alphaset = string.ascii_lowercase
+
+def part_a(data):
+    data = [ x.replace("\n", "") for x in data]
+    sum_counts = 0
+    for group_answers in data:
+        unique_answers = set(group_answers).intersection(alphaset)
+        count = len(unique_answers)
+        #print(count)
+        sum_counts += count
+    return sum_counts
+
+def part_b(data):
+    data = [ s.split() for s in data ]
+    #print(data)
+    sum_counts = 0
+    for group_answer_list in data:
+        common_answers = set(group_answer_list[0])
+        #print('starting common answers ', end='')
+        #print(common_answers)
+        for answers in group_answer_list:
+            common_answers = common_answers.intersection(answers)
+        #print('ending common answers ', end='')
+        #print(common_answers)
+        count = len(common_answers)
+        #print(str(count))
+        sum_counts += count
+    return sum_counts
+
+print('part_a ' + str(part_a(input_groups)))
+print('part_b ' + str(part_b(input_groups)))
+print('\n\ndone')

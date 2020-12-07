@@ -59,17 +59,19 @@ exampledata = list(map(str, open("example-input-p3.txt")))
 data = list(map(str, open("input-p3.txt")))
 
 # Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
-def part_a(data, delta_x, delta_y):
+def trees_in_slope(data, delta_x, delta_y):
     num_trees = 0
     x_pos = 0
-    for s in data:
-        p = s.strip()
+    for string_with_newline in data[::delta_y]:
+        p = string_with_newline.strip()
         c = p[x_pos % len(p)]
         if c == '#':
             num_trees += 1
         x_pos = x_pos + delta_x
-        #print(p + ' ' + c)
+        # print(p + ' ' + c)
     return num_trees
+
+print("part_a: " + str(trees_in_slope(data, 3, 1)))
 
 # now do each of the following slopes
 # right 1, down 1
@@ -81,8 +83,16 @@ def part_a(data, delta_x, delta_y):
 # 2, 7, 3, 4, and 2 trees respectively;
 # multiplied together, these produce the answer 336
 # what is the product for the full data input?
-# TODO part_b
 
-print("part_a: " + str(part_a(data, 3, 1)))
+part_b_runs = [None] * 5
+part_b_runs[0] = trees_in_slope(data, 1, 1)
+part_b_runs[1] = trees_in_slope(data, 3, 1)
+part_b_runs[2] = trees_in_slope(data, 5, 1)
+part_b_runs[3] = trees_in_slope(data, 7, 1)
+part_b_runs[4] = trees_in_slope(data, 1, 2)
+print("part_b: ", end='')
+#print(part_b_runs)
+from functools import reduce
+print(str(reduce(lambda x,y: x*y, part_b_runs)))
 
 print("\n\ndone")
