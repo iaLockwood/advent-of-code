@@ -84,6 +84,7 @@ def part_a():
     print('end of part_a ')
 
 def run_program_b(program):
+    print('entered run_program_b function...')
     pointer = 0
     accumulator = 0
     counter = 1
@@ -104,38 +105,64 @@ def run_program_b(program):
             return 'RUNTIME ERROR'
         print('pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
         if pointer >= len(program):
+            print('pointer beyond program length,'+ " counter=" + str(counter) + " accumulator=" + str(accumulator))
             completed = True
             break
     print('halt.')
+    print('...instruction sequence')
+    print(instruction_list)
+    print('...completed='+ str(completed) + ' pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
     return (program, instruction_list, accumulator, completed)
 
 def patch(program, ins_list):
-    line_num = len(ins_list) - 1
+    print('entered patch function...')
+    print('...instruction sequence')
+    print(ins_list)
+    print('...last instruction line number was')
+    line_num = ins_list.pop()
+    print(line_num)
+    print(program[line_num][0])
     while program[line_num][0] == 'acc':
-          line_num -= 1
+        print('...cannot patch acc, getting previous')
+        #line_num -= 1
+        line_num = ins_list.pop()
+    print('...patching')
+    print(program)
     if program[line_num][0] == 'jmp':
         program[line_num][0] = 'nop'
     elif program[line_num][0] == 'nop':
         program[line_num][0] = 'jmp'
     else:
         return 'PATCH ERROR'
+    print('...patched')
+    print(program)
     return program
 
 def part_b():
+    ran_to_completion = False
+    infile = 'example-input-p8.txt'
+    (saved_program, ins_list, acc, ran_to_completion) = run_program_b(load_program(infile))
+    while len(ins_list) > 0:
+        patched_program = patch(load_program(infile), ins_list)
+        (prog, ins_list, acc, completed) = run_program_b(patched_program)
+        if completed:
+            break
+        else:
+            ins_list.pop()
 
     """
     prog = load_program('example-input-p8.txt')
     print(prog)
-    (saved_program, ins_list, acc) = run_program_b(prog)
+    (saved_program, ins_list, acc, c) = run_program_b(prog)
     print(saved_program)
     prog = load_program('example-input-p8.txt')
     patched_program = patch(prog, ins_list)
     print(patched_program)
-    (saved_program, ins_list, acc) = run_program_b(patched_program)
+    (saved_program, ins_list, acc, c) = run_program_b(patched_program)
     prog = load_program('example-input-p8.txt')
     patched_program = patch(prog, ins_list)
     print(patched_program)
-    (saved_program, ins_list, acc) = run_program_b(patched_program)
+    (saved_program, ins_list, acc, c) = run_program_b(patched_program)
     """
 
     print('end of part_b ')
