@@ -56,35 +56,8 @@ def load_program(filename):
         program[idx] = [instruction[0], int(instruction[1]), 0]
     return program
 
-def run_program_a(program, entry_point):
-    pointer = entry_point
-    accumulator = 0
-    counter = 1
-    print('entry_point is line ' + str(entry_point))
-#    print(program)
-    while program[pointer][2] == 0:
-        program[pointer][2] = counter
-        counter += 1
-        if program[pointer][0] == 'nop':
-            pointer += 1
-        elif program[pointer][0] == 'acc':
-            accumulator += program[pointer][1]
-            pointer += 1
-        elif program[pointer][0] == 'jmp':
-            pointer += program[pointer][1]
-        else:
-            return 'FLAGRANT SYSTEM ERROR'
-#    print(program)
-    return accumulator
-
-def part_a():
-    prog = load_program('input-p8.txt')
-    output = run_program_a(prog, 0)
-    print(output)
-    print('end of part_a ')
-
-def run_program_b(program):
-    print('......entered run_program_b function...')
+def run_program(program):
+    print('......entered run_program function...')
     pointer = 0
     accumulator = 0
     counter = 1
@@ -103,7 +76,6 @@ def run_program_b(program):
             pointer += program[pointer][1]
         else:
             return 'RUNTIME ERROR'
-        #print('pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
         if pointer >= len(program):
             print('pointer beyond program length,'+ " counter=" + str(counter) + " accumulator=" + str(accumulator))
             completed = True
@@ -128,6 +100,11 @@ def patch(program, line_num):
         return None
     return program
 
+def part_a():
+    prog = load_program('input-p8.txt')
+    run_program(prog)
+    print('\n\nend of part_a\n\n')
+
 def part_b():
     infile = 'input-p8.txt'
     prog = load_program(infile)
@@ -136,13 +113,13 @@ def part_b():
         patched_program = patch(prog, i)
         if patched_program == None:
             continue
-        completed = run_program_b(patched_program)
+        completed = run_program(patched_program)
         if completed:
             break
 
     print('\nend of part_b ')
 
-#part_a()
+part_a()
 
 part_b()
 
