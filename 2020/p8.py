@@ -84,7 +84,7 @@ def part_a():
     print('end of part_a ')
 
 def run_program_b(program):
-    print('entered run_program_b function...')
+    print('......entered run_program_b function...')
     pointer = 0
     accumulator = 0
     counter = 1
@@ -103,69 +103,44 @@ def run_program_b(program):
             pointer += program[pointer][1]
         else:
             return 'RUNTIME ERROR'
-        print('pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
+        #print('pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
         if pointer >= len(program):
             print('pointer beyond program length,'+ " counter=" + str(counter) + " accumulator=" + str(accumulator))
             completed = True
             break
     print('halt.')
-    print('...instruction sequence')
+    print('instruction list:')
     print(instruction_list)
-    print('...completed='+ str(completed) + ' pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
-    return (program, instruction_list, accumulator, completed)
+    print('pointer=' + str(pointer) + " counter=" + str(counter) + " accumulator=" + str(accumulator))
+    print('...completed='+ str(completed))
+    return completed
 
-def patch(program, ins_list):
-    print('entered patch function...')
-    print('...instruction sequence')
-    print(ins_list)
-    print('...last instruction line number was')
-    line_num = ins_list.pop()
+def patch(program, line_num):
+    print('......entered patch function...')
     print(line_num)
     print(program[line_num][0])
-    while program[line_num][0] == 'acc':
-        print('...cannot patch acc, getting previous')
-        #line_num -= 1
-        line_num = ins_list.pop()
-    print('...patching')
-    print(program)
     if program[line_num][0] == 'jmp':
         program[line_num][0] = 'nop'
     elif program[line_num][0] == 'nop':
         program[line_num][0] = 'jmp'
     else:
-        return 'PATCH ERROR'
-    print('...patched')
-    print(program)
+        print('Warning: cannot patch ' + str(program[line_num][0]))
+        return None
     return program
 
 def part_b():
-    ran_to_completion = False
-    infile = 'example-input-p8.txt'
-    (saved_program, ins_list, acc, ran_to_completion) = run_program_b(load_program(infile))
-    while len(ins_list) > 0:
-        patched_program = patch(load_program(infile), ins_list)
-        (prog, ins_list, acc, completed) = run_program_b(patched_program)
+    infile = 'input-p8.txt'
+    prog = load_program(infile)
+    for i in range(len(prog)):
+        prog = load_program(infile)
+        patched_program = patch(prog, i)
+        if patched_program == None:
+            continue
+        completed = run_program_b(patched_program)
         if completed:
             break
-        else:
-            ins_list.pop()
 
-    """
-    prog = load_program('example-input-p8.txt')
-    print(prog)
-    (saved_program, ins_list, acc, c) = run_program_b(prog)
-    print(saved_program)
-    prog = load_program('example-input-p8.txt')
-    patched_program = patch(prog, ins_list)
-    print(patched_program)
-    (saved_program, ins_list, acc, c) = run_program_b(patched_program)
-    prog = load_program('example-input-p8.txt')
-    patched_program = patch(prog, ins_list)
-    print(patched_program)
-    (saved_program, ins_list, acc, c) = run_program_b(patched_program)
-    """
-
-    print('end of part_b ')
+    print('\nend of part_b ')
 
 #part_a()
 
