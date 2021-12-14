@@ -1,0 +1,57 @@
+[('x', 655), ('y', 447), ('x', 327), ('y', 223), ('x', 163), ('y', 111), ('x', 81), ('y', 55), ('x', 40), ('y', 27), ('y', 13), ('y', 6)]
+x
+fold_grid_vertical_along_x 655
+rightend - rightstart < leftend - leftstart
+y
+fold_grid_horizontal_along_y 447
+oldlastrow: 894
+oldlastrow - y <= y, fold will not go above top
+x
+fold_grid_vertical_along_x 327
+rightend - rightstart < leftend - leftstart
+y
+fold_grid_horizontal_along_y 223
+oldlastrow: 446
+oldlastrow - y <= y, fold will not go above top
+x
+fold_grid_vertical_along_x 163
+rightend - rightstart < leftend - leftstart
+y
+fold_grid_horizontal_along_y 111
+oldlastrow: 222
+oldlastrow - y <= y, fold will not go above top
+x
+fold_grid_vertical_along_x 81
+rightend - rightstart < leftend - leftstart
+y
+fold_grid_horizontal_along_y 55
+oldlastrow: 110
+oldlastrow - y <= y, fold will not go above top
+x
+fold_grid_vertical_along_x 40
+rightend - rightstart < leftend - leftstart
+y
+fold_grid_horizontal_along_y 27
+oldlastrow: 54
+oldlastrow - y <= y, fold will not go above top
+y
+fold_grid_horizontal_along_y 13
+oldlastrow: 26
+oldlastrow - y <= y, fold will not go above top
+y
+fold_grid_horizontal_along_y 6
+oldlastrow: 12
+oldlastrow - y <= y, fold will not go above top
+
+
+###..####.#..#.####.#....###...##..#..#.
+#..#....#.#.#.....#.#....#..#.#..#.#..#.
+#..#...#..##.....#..#....#..#.#....####.
+###...#...#.#...#...#....###..#.##.#..#.
+#.#..#....#.#..#....#....#....#..#.#..#.
+#..#.####.#..#.####.####.#.....###.#..#.
+
+
+
+...result part b: 0
+done.
